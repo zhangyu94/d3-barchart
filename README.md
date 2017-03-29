@@ -11,6 +11,7 @@ Dependency: D3-timeseries requires D3 4.x version as dependency
 Installing: All the content of d3-timeseries plugin is in the folder libs/d3_barchart, including d3.barchart.js and d3.barchart.css
 
 ## Usage example
+```js
 let data = [{
 		x1: 0,
     x2: 9,
@@ -38,3 +39,4 @@ let barchart1 = d3.barchart()
 let svg = d3.select('body').append('svg')
 		.data([data])
 		.call(barchart1)
+```
