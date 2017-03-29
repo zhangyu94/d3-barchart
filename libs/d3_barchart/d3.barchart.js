@@ -20,7 +20,7 @@
             xLabel = '',
             yLabel = ''
 
-        let brush_trigger = function(d3_event,brushed_bar_sel) {}
+        let brush_trigger = function(d3_event, brushed_bar_sel) {}
 
         let _font_style = '10px sans-serif'
 
@@ -30,7 +30,7 @@
             let len_bound = bound2 - bound1
 
             if (bound1 <= x1 && x2 <= bound2) {
-                return true;
+                return true
             }
             if (bound1 <= x1 && x1 <= bound2) {
                 let ceil = Math.min(bound2, x2)
@@ -165,116 +165,116 @@
                     //根据被highlight的bar进行brush的位置校正
                     let brushed_bar_sel = g.selectAll('.bar.highlight')
                     if (brushed_bar_sel.size() != 0) {
-                        let x_range = d3.extent(brushed_bar_sel.data().reduce(function(list,ele){
-                            list.push(ele.x1,ele.x2)
+                        let x_range = d3.extent(brushed_bar_sel.data().reduce(function(list, ele) {
+                            list.push(ele.x1, ele.x2)
                             return list
-                        },[]))
+                        }, []))
                         d3.select(this).call(d3.event.target.move, x_range.map(x))
                     }
 
-                    brush_trigger(d3.event,brushed_bar_sel)
+                    brush_trigger(d3.event, brushed_bar_sel)
                 }
-            });
+            })
         }
 
         chart.width = function(value) {
-            if (!arguments.length) return width;
+            if (!arguments.length) return width
             if (typeof(value) != 'number') {
-                console.warn('invalid value for width', value);
-                return;
+                console.warn('invalid value for width', value)
+                return
             }
-            width = value;
-            return chart;
-        };
+            width = value
+            return chart
+        }
 
         chart.height = function(value) {
-            if (!arguments.length) return height;
+            if (!arguments.length) return height
             if (typeof(value) != 'number') {
-                console.warn('invalid value for height', value);
-                return;
+                console.warn('invalid value for height', value)
+                return
             }
-            height = value;
-            return chart;
-        };
+            height = value
+            return chart
+        }
 
         chart.margin = function(value) {
-            if (!arguments.length) return margin;
+            if (!arguments.length) return margin
             if (typeof(value) != 'object') {
-                console.warn('invalid value for margin', value);
-                return;
+                console.warn('invalid value for margin', value)
+                return
             }
             if (typeof(value.top) == 'number')
-                margin.top = value.top;
+                margin.top = value.top
             if (typeof(value.right) == 'number')
-                margin.right = value.right;
+                margin.right = value.right
             if (typeof(value.bottom) == 'number')
-                margin.bottom = value.bottom;
+                margin.bottom = value.bottom
             if (typeof(value.left) == 'number')
-                margin.left = value.left;
-            return chart;
-        };
+                margin.left = value.left
+            return chart
+        }
 
         chart.duration = function(value) {
-            if (!arguments.length) return duration;
+            if (!arguments.length) return duration
             if (typeof(value) != 'number') {
-                console.warn('invalid value for duration', value);
-                return;
+                console.warn('invalid value for duration', value)
+                return
             }
-            duration = value;
-            return chart;
-        };
+            duration = value
+            return chart
+        }
 
         chart.yTickNum = function(value) {
-            if (!arguments.length) return yTickNum;
+            if (!arguments.length) return yTickNum
             if (typeof(value) != 'number') {
-                console.warn('invalid value for yTickNum', value);
-                return;
+                console.warn('invalid value for yTickNum', value)
+                return
             }
-            yTickNum = value;
-            return chart;
-        };
+            yTickNum = value
+            return chart
+        }
 
         chart.xTickNum = function(value) {
-            if (!arguments.length) return xTickNum;
+            if (!arguments.length) return xTickNum
             if (typeof(value) != 'number') {
-                console.warn('invalid value for xTickNum', value);
-                return;
+                console.warn('invalid value for xTickNum', value)
+                return
             }
-            xTickNum = value;
-            return chart;
-        };
+            xTickNum = value
+            return chart
+        }
 
         chart.xLabel = function(value) {
-            if (!arguments.length) return xLabel;
+            if (!arguments.length) return xLabel
             if (typeof(value) != 'string') {
-                console.warn('invalid value for xLabel', value);
-                return;
+                console.warn('invalid value for xLabel', value)
+                return
             }
-            xLabel = value;
-            return chart;
-        };
+            xLabel = value
+            return chart
+        }
 
         chart.yLabel = function(value) {
-            if (!arguments.length) return yLabel;
+            if (!arguments.length) return yLabel
             if (typeof(value) != 'string') {
-                console.warn('invalid value for yLabel', value);
-                return;
+                console.warn('invalid value for yLabel', value)
+                return
             }
-            yLabel = value;
-            return chart;
-        };
+            yLabel = value
+            return chart
+        }
 
         chart.brush_trigger = function(value) {
-            if (!arguments.length) return brush_trigger;
+            if (!arguments.length) return brush_trigger
             if (typeof(value) != "function") {
-                console.warn("invalid value for brush_trigger", value);
-                return;
+                console.warn("invalid value for brush_trigger", value)
+                return
             }
-            brush_trigger = value;
-            return chart;
-        };
+            brush_trigger = value
+            return chart
+        }
 
 
-        return chart;
+        return chart
     }
-})();
+})()
