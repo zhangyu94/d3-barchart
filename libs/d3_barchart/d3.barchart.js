@@ -91,8 +91,10 @@
                         .enter()
                         .append('text')
                         .attr('class', 'x label')
-                        .attr('dy', '-.71em')
+                        .attr('dy', '1.5em')
+                        .attr('dx', '2em')
                         .attr('x', innerWidth)
+                        .attr('fill', 'black')
                         .text(xLabel)
 
                     xAxis_g_enter.selectAll('text')
@@ -119,8 +121,8 @@
                         .append('text')
                         .attr('class', 'y label')
                         .attr('transform', 'rotate(-90)')
-                        .attr('y', 6)
-                        .attr('dy', '0.71em')
+                        .attr('dy', '-3em')
+                        .attr('fill', 'black')
                         .text(yLabel)
 
                     yAxis_g_enter.selectAll('text')
@@ -273,7 +275,6 @@
             brush_trigger = value
             return chart
         }
-
 
         return chart
     }

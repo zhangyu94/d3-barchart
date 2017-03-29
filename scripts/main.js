@@ -51,12 +51,13 @@ let main = function() {
 		.width(250)
 		.height(100)
 		.margin({
-			left: 50
+			left: 50,
+			right: 20
 		})
 		.yTickNum(3)
 		.xTickNum(10)
-		.xLabel('xl')
-		.yLabel('yl')
+		.xLabel('Book Num')
+		.yLabel('Node Num')
 		.brush_trigger(function(d3_event,brushed_bar_selection){
 			let range = d3_event.selection
 			let brush_range = brushed_bar_selection.nodes()
