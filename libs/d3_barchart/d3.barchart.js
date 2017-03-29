@@ -18,7 +18,10 @@
             yTickNum = null,
             xTickNum = null,
             xLabel = '',
-            yLabel = ''
+            yLabel = '',
+            enable_brush = true,
+            color = '#808080',
+            bar_interval = 0
 
         let brush_trigger = function(d3_event, brushed_bar_sel) {}
 
@@ -29,9 +32,8 @@
             let len_x = x2 - x1
             let len_bound = bound2 - bound1
 
-            if (bound1 <= x1 && x2 <= bound2) {
+            if (bound1 <= x1 && x2 <= bound2) 
                 return true
-            }
             if (bound1 <= x1 && x1 <= bound2) {
                 let ceil = Math.min(bound2, x2)
                 let intersection = ceil - x1
@@ -137,44 +139,46 @@
                 g.selectAll('.bar').transition()
                     .duration(duration)
                     .attr('x', d => x(d.x1))
-                    .attr('width', d => x(d.x2 - d.x1) - 0.5)
+                    .attr('width', d => x(d.x2 - d.x1) - bar_interval)
                     .attr('y', d => y(d.y))
                     .attr('height', d => innerHeight - y(d.y))
-                    .attr('fill', '#808080')
+                    .attr('fill', color)
                     .attr('opacity', 1)
 
-                let brush = d3.brushX()
-                    .extent([
-                        [0, 0],
-                        [innerWidth, innerHeight]
-                    ])
-                    .on('end', end)
+                if (enable_brush) {
+                    let brush = d3.brushX()
+                        .extent([
+                            [0, 0],
+                            [innerWidth, innerHeight]
+                        ])
+                        .on('end', end)
 
-                let brush_g = g.append('g')
-                    .attr('class', 'x brush')
-                    .call(brush)
+                    let brush_g = g.append('g')
+                        .attr('class', 'x brush')
+                        .call(brush)
 
-                function end() {
-                    if (d3.event.sourceEvent.type === 'end')
-                        return
+                    function end() {
+                        if (d3.event.sourceEvent.type === 'end')
+                            return
 
-                    let extent = d3.event.selection
-                    g.selectAll('.bar')
-                        .classed('highlight', function(d) {
-                            return extent == null ? false : _overhalf(x(d.x1), x(d.x2), extent[0], extent[1])
-                        })
+                        let extent = d3.event.selection
+                        g.selectAll('.bar')
+                            .classed('highlight', function(d) {
+                                return extent == null ? false : _overhalf(x(d.x1), x(d.x2), extent[0], extent[1])
+                            })
 
-                    //根据被highlight的bar进行brush的位置校正
-                    let brushed_bar_sel = g.selectAll('.bar.highlight')
-                    if (brushed_bar_sel.size() != 0) {
-                        let x_range = d3.extent(brushed_bar_sel.data().reduce(function(list, ele) {
-                            list.push(ele.x1, ele.x2)
-                            return list
-                        }, []))
-                        d3.select(this).call(d3.event.target.move, x_range.map(x))
+                        //根据被highlight的bar进行brush的位置校正
+                        let brushed_bar_sel = g.selectAll('.bar.highlight')
+                        if (brushed_bar_sel.size() != 0) {
+                            let x_range = d3.extent(brushed_bar_sel.data().reduce(function(list, ele) {
+                                list.push(ele.x1, ele.x2)
+                                return list
+                            }, []))
+                            d3.select(this).call(d3.event.target.move, x_range.map(x))
+                        }
+
+                        brush_trigger(d3.event, brushed_bar_sel)
                     }
-
-                    brush_trigger(d3.event, brushed_bar_sel)
                 }
             })
         }
@@ -226,6 +230,26 @@
             return chart
         }
 
+        chart.draw_xAxis = function(value) {
+            if (!arguments.length) return draw_xAxis
+            if (typeof(value) != 'boolean') {
+                console.warn('invalid value for draw_xAxis', value)
+                return
+            }
+            draw_xAxis = value
+            return chart
+        }
+
+        chart.draw_yAxis = function(value) {
+            if (!arguments.length) return draw_yAxis
+            if (typeof(value) != 'boolean') {
+                console.warn('invalid value for draw_yAxis', value)
+                return
+            }
+            draw_yAxis = value
+            return chart
+        }
+
         chart.yTickNum = function(value) {
             if (!arguments.length) return yTickNum
             if (typeof(value) != 'number') {
@@ -273,6 +297,36 @@
                 return
             }
             brush_trigger = value
+            return chart
+        }
+
+        chart.enable_brush = function(value) {
+            if (!arguments.length) return enable_brush
+            if (typeof(value) != 'boolean') {
+                console.warn('invalid value for enable_brush', value)
+                return
+            }
+            enable_brush = value
+            return chart
+        }
+
+        chart.color = function(value) {
+            if (!arguments.length) return color
+            if (typeof(value) != 'string') {
+                console.warn('invalid value for color', value)
+                return
+            }
+            color = value
+            return chart
+        }
+
+        chart.bar_interval = function(value) {
+            if (!arguments.length) return bar_interval
+            if (typeof(value) != 'number') {
+                console.warn('invalid value for bar_interval', value)
+                return
+            }
+            bar_interval = value
             return chart
         }
 

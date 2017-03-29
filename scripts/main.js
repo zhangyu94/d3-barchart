@@ -39,7 +39,7 @@ let main = function() {
 		raw_data[i].lend_range[1] = (i + 1) * 4
 	}
 
-	let data = raw_data.map(function(ele) {
+	let data1 = raw_data.map(function(ele) {
 		return {
 			x1: ele.lend_range[0],
 			x2: ele.lend_range[1],
@@ -47,6 +47,60 @@ let main = function() {
 		}
 	})
 
+	let data2 = raw_data.map(function(ele) {
+		return {
+			x1: ele.lend_range[0],
+			x2: ele.lend_range[1],
+			y: ele.count - 100 < 0 ? 0 : ele.count - 100
+		}
+	})
+
+
+	let barchart1 = d3.barchart()
+		.width(250)
+		.height(100)
+		.margin({
+			left: 50,
+			right: 40
+		})
+		.yTickNum(3)
+		.xTickNum(10)
+		.xLabel('#Book')
+		.yLabel('#Node')
+		.bar_interval(0.5)
+		.brush_trigger(function(d3_event,brushed_bar_selection){
+			let range = d3_event.selection
+			let brush_range = brushed_bar_selection.nodes()
+				.reduce(function(list,bar){
+					let datum = d3.select(bar).data()[0]
+					list.push(datum.x1,datum.x2)
+					return list
+				},[])
+			console.log(brush_range)
+		})
+	let barchart2 = d3.barchart()
+		.width(250)
+		.height(100)
+		.margin({
+			left: 50,
+			right: 40
+		})
+		.draw_xAxis(false)
+		.draw_yAxis(false)
+		.enable_brush(false)
+		.color('#ef8a62')
+		.bar_interval(0.5)
+	let svg = d3.select('body').append('svg')
+	let g1 = svg.append('g')
+		.data([data1])
+		.call(barchart1)
+		
+	let g2 = svg.append('g')
+		.data([data2])
+		.call(barchart2)
+		
+
+	/*
 	let barchart = d3.barchart()
 		.width(250)
 		.height(100)
@@ -58,6 +112,8 @@ let main = function() {
 		.xTickNum(10)
 		.xLabel('#Book')
 		.yLabel('#Node')
+		.draw_xAxis(false)
+		.draw_yAxis(false)
 		.brush_trigger(function(d3_event,brushed_bar_selection){
 			let range = d3_event.selection
 			let brush_range = brushed_bar_selection.nodes()
@@ -68,7 +124,9 @@ let main = function() {
 				},[])
 			console.log(brush_range)
 		})
-	let svg = d3.select("body").append("svg")
-		.data([data])
+		.enable_brush(false)
+	let svg = d3.select('body').append('svg')
+		.data([data1])
 		.call(barchart)
+		*/
 }
