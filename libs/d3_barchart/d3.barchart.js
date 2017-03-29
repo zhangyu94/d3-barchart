@@ -92,7 +92,7 @@
                         .append('text')
                         .attr('class', 'x label')
                         .attr('dy', '1.5em')
-                        .attr('dx', '2em')
+                        .attr('dx', '2.5em')
                         .attr('x', innerWidth)
                         .attr('fill', 'black')
                         .text(xLabel)
@@ -121,7 +121,7 @@
                         .append('text')
                         .attr('class', 'y label')
                         .attr('transform', 'rotate(-90)')
-                        .attr('dy', '-3em')
+                        .attr('dy', '-3.5em')
                         .attr('fill', 'black')
                         .text(yLabel)
 
