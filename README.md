@@ -38,3 +38,14 @@ let svg = d3.select('body').append('svg')
 	.data([data])
 	.call(barchart)
 ```
+
+## Usage scenarios in our lab
+### 1. Weibo Geo  
+![image](http://note.youdao.com/yws/public/resource/79e994a9eae80352b49dda8385f14c83/xmlnote/8ACF803568E34CBF83CD45CCBCA75123/1003)
+
+- mix line chart with bar chart
+
+### 2. Trajectory Cleaning
+![image](http://note.youdao.com/yws/public/resource/79e994a9eae80352b49dda8385f14c83/xmlnote/0D9799E4C2214B4FB568F6C982F9B37E/1008)
+
+- mix parallel coordinates with bar chart
