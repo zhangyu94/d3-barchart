@@ -1,9 +1,21 @@
 //version 2017.3.29 14:00
 //dependency:
 //d3.js version 4.7.4
-
-(function() {
-    d3.barchart = function() {
+(function (root, factory) {
+    let lib_name = 'barchart'
+    //detect environment
+    if (typeof module === 'object' && module && typeof module.exports === 'object') {
+        module.exports = factory(require('d3')) // CommonJS
+    } else {
+        if (typeof define === 'function' && define.amd) {
+            define(lib_name, ['d3'], factory)// AMD
+        } else {
+        	root['d3'] = root['d3'] || {}
+            root['d3'][lib_name] = factory(root['d3']) // <script>
+        }
+    }
+}(this, function (d3) {
+	let barchart = function() {
         let width = 400,
             height = 100,
             margin = {
@@ -332,4 +344,5 @@
 
         return chart
     }
-})()
+    return barchart
+}))
