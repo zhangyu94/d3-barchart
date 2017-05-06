@@ -42,7 +42,6 @@
         //判断区间[x1,x2]与[bound1,bound2]的交集长度是否超过[x1,x2]长度的一半
         let _overhalf = function(x1, x2, bound1, bound2) {
             let len_x = x2 - x1
-            let len_bound = bound2 - bound1
 
             if (bound1 <= x1 && x2 <= bound2) 
                 return true
